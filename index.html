@@ -1,1 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FX Morning Terminal</title>
+  <style>
+    body { font-family: Arial; background:#0d1117; color:white; }
+    .box { background:#161b22; padding:20px; margin:10px; border-radius:10px; }
+    .grid { display:grid; grid-template-columns: repeat(2,1fr); gap:10px; }
+    h2 { color:#58a6ff; }
+  </style>
+</head>
+<body>
 
+<h1>FX Morning Terminal</h1>
+
+<div class="grid">
+  <div class="box">
+    <h2>XAUUSD</h2>
+    <p id="gold"></p>
+  </div>
+
+  <div class="box">
+    <h2>EURUSD</h2>
+    <p id="eurusd"></p>
+  </div>
+
+  <div class="box">
+    <h2>DXY</h2>
+    <p id="dxy"></p>
+  </div>
+
+  <div class="box">
+    <h2>US10Y</h2>
+    <p id="us10y"></p>
+  </div>
+</div>
+
+<script>
+const API_KEY = "BURAYA_API_KEY_YAZ";
+
+async function getPrice(symbol, elementId) {
+  const url = `https://api.twelvedata.com/price?symbol=${symbol}&apikey=${API_KEY}`;
+  const response = await fetch(url);
+  const data = await response.json();
+  document.getElementById(elementId).innerText = 
+    data.price ? "Price: " + data.price : "Error loading";
+}
+
+getPrice("XAU/USD", "gold");
+getPrice("EUR/USD", "eurusd");
+getPrice("DXY", "dxy");
+getPrice("US10Y", "us10y");
+
+</script>
+
+</body>
+</html>
